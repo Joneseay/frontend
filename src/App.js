@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import './App.css';
 
 let products = [
-  {category: 'Appetizer', price: '$5.99', name: 'Mozzarella Sticks', description: 'Mozzarella breaded and fried to a crispy crust'},
-  {category: 'Appetizer', price: '$4.99', name: 'Potatoe Skins', description: 'Potatoe skins filled with cheese and bacon and melted to perfection'},
-  {category: 'Appetizer', price: '$3.99', name: 'Blooming Onion', description: 'Onion cut with our special styles batter and fried delivering crispy little petals'},
-  {category: 'Main Dish', price: '$8.99', name: 'Bacon Cheeseburger', description: 'Traditional American cheeseburger done right then topped with bacon'},
-  {category: 'Main Dish', price: '$7.99', name: 'Club Sandwich', description: 'Ham, turkey, roast beef, and american cheese piled high on text toast'},
-  {category: 'Main Dish', price: '$6.99', name: 'Chicken Sandwich', description: 'Hand breaded fried chicken breast put together in a custom bun'},
-  {category: 'Sides', price: '$1.99', name: 'French Fries', description: 'Crispy delicious french fries'},
-  {category: 'Sides', price: '$.99', name: 'Chips', description: 'Homemade potatoe chips'},
-  {category: 'Dessert', price: '$2.99', name: 'Daily Cake', description: 'Ask your waitress about our daily cakes'},
+  {category: 'Appetizer', price: '5.99', name: 'Mozzarella Sticks', description: 'Mozzarella breaded and fried to a crispy crust'},
+  {category: 'Appetizer', price: '4.99', name: 'Potatoe Skins', description: 'Potatoe skins filled with cheese and bacon and melted to perfection'},
+  {category: 'Appetizer', price: '3.99', name: 'Blooming Onion', description: 'Onion cut with our special styles batter and fried delivering crispy little petals'},
+  {category: 'Main Dish', price: '8.99', name: 'Bacon Cheeseburger', description: 'Traditional American cheeseburger done right then topped with bacon'},
+  {category: 'Main Dish', price: '7.99', name: 'Club Sandwich', description: 'Ham, turkey, roast beef, and american cheese piled high on text toast'},
+  {category: 'Main Dish', price: '6.99', name: 'Chicken Sandwich', description: 'Hand breaded fried chicken breast put together in a custom bun'},
+  {category: 'Sides', price: '1.99', name: 'French Fries', description: 'Crispy delicious french fries'},
+  {category: 'Sides', price: '.99', name: 'Chips', description: 'Homemade potatoe chips'},
+  {category: 'Dessert', price: '2.99', name: 'Daily Cake', description: 'Ask your waitress about our daily cakes'},
 ]
 
 
@@ -115,7 +115,10 @@ class App extends Component{
     super(props);
     this.state = {
       products : [],
-      orders: []
+      orders: [],
+      subtotal: (orders) => {
+        return orders.reduce((acc, i) => (acc + Number(i.price) ),0);
+      }
     }
     this.addOrder = this.addOrder.bind(this);
   }
@@ -135,10 +138,12 @@ class App extends Component{
   }
 
   render(){
+    let order = this.state.orders;
       return (
         <div className="App">
           <Menu products={this.state.products} addOrder = {this.addOrder}/>
           <Order orders = {this.state.orders}/>
+          <p>Subtotal: {this.state.subtotal(order)}</p>
         </div>
       );
     }
