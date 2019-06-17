@@ -32,7 +32,7 @@ class MenuRow extends Component{
               <tr>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
-                <td><button onClick={this.addOrder}></button></td>
+                <td><button onClick={this.addOrder}>Order</button></td>
               </tr>
           );
   }
@@ -68,6 +68,7 @@ class OrderRow extends Component{
 
   render(){
     let order = this.props.order;
+    console.log(order);
     return (
               <tr>
                 <td>{order.name}</td>
@@ -78,6 +79,14 @@ class OrderRow extends Component{
 }
 
 class Order extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      orders : []
+    }
+
+  }
+
 
 
   render(){
@@ -108,18 +117,20 @@ class App extends Component{
       products : [],
       orders: []
     }
+    this.addOrder = this.addOrder.bind(this);
   }
 
   componentDidMount(){
-    this.setState({products: products})
+    this.setState({products: products});
   }
 
   addOrder(product){
-    let order = [...this.state.products];
+    let orders = [...this.state.orders];
+    console.log(product);
 
-    order.push(product);
+    orders.push(product);
 
-    this.setState({order: order})
+    this.setState({orders: orders})
 
   }
 
@@ -127,7 +138,7 @@ class App extends Component{
       return (
         <div className="App">
           <Menu products={this.state.products} addOrder = {this.addOrder}/>
-          <Order orders = {this.state.order}/>
+          <Order orders = {this.state.orders}/>
         </div>
       );
     }
